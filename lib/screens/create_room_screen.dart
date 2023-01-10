@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peak_card_game/resources/socket_methods.dart';
 import 'package:peak_card_game/responsive/responsive.dart';
 import 'package:peak_card_game/utils/color.dart';
 import 'package:peak_card_game/widgets/custom_button.dart';
@@ -7,7 +8,7 @@ import 'package:peak_card_game/widgets/custom_text_field.dart';
 
 class CreateRoomScreen extends StatefulWidget {
   static String routeName = '/create-room';
-  const CreateRoomScreen({super.key});
+  const CreateRoomScreen({Key? key}) : super(key: key);
 
   @override
   State<CreateRoomScreen> createState() => _CreateRoomScreenState();
@@ -15,6 +16,13 @@ class CreateRoomScreen extends StatefulWidget {
 
 class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final TextEditingController _nameController = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.createRoomSuccessListener(context);
+  }
 
   @override
   void dispose() {
@@ -54,7 +62,12 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              CustomButton(onTap: () {}, text: 'Create'),
+              CustomButton(
+                onTap: () => _socketMethods.createRoom(
+                  _nameController.text,
+                ),
+                text: 'Create',
+              ),
             ],
           ),
         ),

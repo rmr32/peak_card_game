@@ -5,7 +5,11 @@ import 'package:peak_card_game/utils/style.dart';
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
-  const CustomButton({super.key, required this.onTap, required this.text});
+  const CustomButton({
+    Key? key,
+    required this.onTap,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
