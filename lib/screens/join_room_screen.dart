@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peak_card_game/resources/socket_methods.dart';
 import 'package:peak_card_game/responsive/responsive.dart';
 import 'package:peak_card_game/utils/color.dart';
 import 'package:peak_card_game/widgets/custom_button.dart';
@@ -16,6 +17,15 @@ class JoinRoomScreen extends StatefulWidget {
 class _JoinRoomScreenState extends State<JoinRoomScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _gameIDController = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.joinRoomSuccessListener(context);
+    _socketMethods.errorOccuredListener(context);
+    _socketMethods.updatePlayersStateListener(context);
+  }
 
   @override
   void dispose() {
@@ -50,7 +60,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
               ),
               CustomTextField(
                 controller: _nameController,
-                width: size.width,
+                // width: size.width,
                 hintText: 'Enter Your Nick Name',
               ),
               SizedBox(
@@ -58,13 +68,16 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
               ),
               CustomTextField(
                 controller: _gameIDController,
-                width: size.width,
+                // width: size.width,
                 hintText: 'Enter Game ID',
               ),
               SizedBox(
                 height: size.height * 0.03,
               ),
-              CustomButton(onTap: () {}, text: 'Create'),
+              CustomButton(
+                  onTap: () => _socketMethods.joinRoom(
+                      _nameController.text, _gameIDController.text),
+                  text: 'Join Room'),
             ],
           ),
         ),

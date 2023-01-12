@@ -6,9 +6,11 @@ class Palette {
   static const Color primary = Colors.black;
   static const Color onPrimary = Colors.white; // Dark Text
   static const Color primaryContainer =
-      Color.fromARGB(255, 87, 240, 240); // Background
+      // Color.fromARGB(255, 87, 240, 240); // Back
+      Color.fromARGB(199, 75, 9, 161); // Bacground
   static const Color onPrimaryContainer =
-      Color.fromARGB(255, 77, 77, 77); // Light Background
+      // Color.fromARGB(255, 77, 77, 77); // Light
+      Color.fromARGB(255, 202, 202, 202); // Background
 
   //   static const Color primary = Colors.black;
   // static const Color onPrimary = Colors.white; // Dark Text

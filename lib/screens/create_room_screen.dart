@@ -56,7 +56,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
               ),
               CustomTextField(
                 controller: _nameController,
-                width: size.width,
+                // width: size.width,
                 hintText: 'Enter Your Nick Name',
               ),
               SizedBox(

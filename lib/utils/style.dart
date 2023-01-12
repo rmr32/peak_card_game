@@ -10,7 +10,21 @@ class InkStyle {
   );
   static const secondary = TextStyle(
     // fontFamily: 'Ubuntu',
-    fontSize: 20.0,
+    fontSize: 10.0,
+    color: Palette.onPrimaryContainer,
+    fontWeight: FontWeight.bold,
+    // shadows:
+  );
+  static const header1 = TextStyle(
+    // fontFamily: 'Ubuntu',
+    fontSize: 15.0,
+    color: Palette.onPrimaryContainer,
+    fontWeight: FontWeight.bold,
+    // shadows:
+  );
+  static const header2 = TextStyle(
+    // fontFamily: 'Ubuntu',
+    fontSize: 10.0,
     color: Palette.onPrimaryContainer,
     fontWeight: FontWeight.bold,
     // shadows:
