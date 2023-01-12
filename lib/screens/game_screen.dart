@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peak_card_game/provider/room_data_provider.dart';
 import 'package:peak_card_game/resources/socket_methods.dart';
+import 'package:peak_card_game/views/gameboard.dart';
 import 'package:peak_card_game/views/scoreboard.dart';
 import 'package:peak_card_game/views/waiting_lobby.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _GameScreenState extends State<GameScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: const [
                   Scoreboard(),
+                  GameBoard(),
                 ],
               ),
             ),

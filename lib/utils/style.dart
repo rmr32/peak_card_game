@@ -7,6 +7,12 @@ class InkStyle {
     fontSize: 20.0,
     color: Palette.onPrimaryContainer,
     fontWeight: FontWeight.bold,
+    // shadows: [
+    //   Shadow(
+    //     blurRadius: 30,
+    //     color: Palette.primaryContainer,
+    //   )
+    // ],
   );
   static const secondary = TextStyle(
     // fontFamily: 'Ubuntu',

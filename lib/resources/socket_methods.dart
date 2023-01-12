@@ -25,6 +25,11 @@ class SocketMethods {
     }
   }
 
+  // FOR GAME
+  void tapGrid(int index, String roomID, List<String> displayElements) {
+    if (displayElements[index] == '') {}
+  }
+
   void createRoomSuccessListener(BuildContext context) {
     _socketClient.on('createRoomSuccess', (room) {
       Provider.of<RoomDataProvider>(context, listen: false)
