@@ -3,6 +3,22 @@ import 'package:peak_card_game/models/player.dart';
 
 class RoomDataProvider extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
+
+  //For Game
+  final List<String> _displayElement = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ];
+
+  int _filledBoxes = 0;
+
   Player _player1 = Player(
     nickname: '',
     socketID: '',
@@ -17,6 +33,9 @@ class RoomDataProvider extends ChangeNotifier {
   );
 
   Map<String, dynamic> get roomData => _roomData;
+  //For Game
+  List<String> get displayElements => _displayElement;
+  int get filledBoxes => _filledBoxes;
   Player get player1 => _player1;
   Player get player2 => _player2;
 
@@ -33,5 +52,15 @@ class RoomDataProvider extends ChangeNotifier {
   void updatePlayer2(Map<String, dynamic> player2Data) {
     _player2 = Player.fromMap(player2Data);
     notifyListeners();
+  }
+
+  void updateDisplayElements(int index, String choice) {
+    _displayElement[index] = choice;
+    _filledBoxes += 1;
+    notifyListeners();
+  }
+
+  void resetFilledBoxes() {
+    _filledBoxes = 0;
   }
 }
