@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:peak_card_game/provider/room_data_provider.dart';
+import 'package:peak_card_game/resources/game_methods.dart';
 import 'package:peak_card_game/resources/socket_client.dart';
 import 'package:peak_card_game/screens/game_screen.dart';
 import 'package:peak_card_game/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
+
+  Socket get socketClient => _socketClient;
 
   void createRoom(String nickname) {
     if (nickname.isNotEmpty) {
@@ -25,9 +29,14 @@ class SocketMethods {
     }
   }
 
-  // FOR GAME
+  // For Game
   void tapGrid(int index, String roomID, List<String> displayElements) {
-    if (displayElements[index] == '') {}
+    if (displayElements[index] == '') {
+      _socketClient.emit('tap', {
+        'index': index,
+        'roomID': roomID,
+      });
+    }
   }
 
   void createRoomSuccessListener(BuildContext context) {
@@ -67,6 +76,39 @@ class SocketMethods {
     _socketClient.on('updateRoom', (data) {
       Provider.of<RoomDataProvider>(context, listen: false)
           .updateRoomData(data);
+    });
+  }
+
+  // For Game
+  void tappedListner(BuildContext context) {
+    _socketClient.on('tapped', (data) {
+      RoomDataProvider roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      roomDataProvider.updateDisplayElements(
+        data['index'],
+        data['choice'],
+      );
+      roomDataProvider.updateRoomData(data['room']);
+      GameMethods().checkWinner(context, _socketClient);
+    });
+  }
+
+  void pointIncreaseListner(BuildContext context) {
+    _socketClient.on('pointIncrease', (playerData) {
+      var roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      if (playerData['socketID'] == roomDataProvider.player1.socketID) {
+        roomDataProvider.updatePlayer1(playerData);
+      } else {
+        roomDataProvider.updatePlayer2(playerData);
+      }
+    });
+  }
+
+  void endGameListener(BuildContext context) {
+    _socketClient.on('endGame', (playerData) {
+      showGameDialog(context, '${playerData['nickname']} won the game!');
+      Navigator.popUntil(context, (route) => false);
     });
   }
 }

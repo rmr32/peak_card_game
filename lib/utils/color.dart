@@ -27,4 +27,6 @@ class Palette {
   // Color get backgroundLevelSelection => pingBackgroundMain;
   // Color get backgroundPlaySession => pingBackgroundMain;
   // Color get backgroundSettings => pingBackgroundMain;
+  static const Color playerOne = Colors.red;
+  static const Color playerTwo = Colors.blue;
 }

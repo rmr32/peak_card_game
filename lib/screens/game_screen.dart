@@ -22,6 +22,8 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
+    _socketMethods.pointIncreaseListner(context);
+    _socketMethods.endGameListener(context);
   }
 
   @override
@@ -34,9 +36,11 @@ class _GameScreenState extends State<GameScreen> {
           : SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Scoreboard(),
-                  GameBoard(),
+                children: [
+                  const Scoreboard(),
+                  const GameBoard(),
+                  Text(
+                      '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
                 ],
               ),
             ),

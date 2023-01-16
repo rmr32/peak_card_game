@@ -2,6 +2,7 @@
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
+const roomModel = require('./models/room');
 
 const app = express();
 const port = process.env.PORT | 3000;
@@ -72,6 +73,46 @@ io.on("connection", (socket) => {
     console.log(e);
 }
     });
+
+    // For Game
+    socket.on('tap', async ({index, roomID}) => {
+        try{
+            let room = await Room.findById(roomID);
+            let choice = room.turn.playerType;
+            if(room.turnIndex == 0) {
+                room.turn = room.players[1];
+                room.turnIndex = 1;
+            } else {
+                room.turn = room.players[0];
+                room.turnIndex = 0;
+            }
+            room = await room.save();
+            io.to(roomID).emit("tapped", {
+                index,
+                choice,
+                room,
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+    socket.on('winner', async ({winnerSocketID, roomID}) => {
+        try{
+            let room = await Room.findById(roomID);
+            let player = room.players.find((player) => player.socketID == winnerSocketID);
+            player.points += 1;
+            room = await room.save();
+
+            if(player.points >= room.maxRounds) {
+                io.to(roomID).emit('endGame', player);
+            } else {
+                io.to(roomID).emit('pointIncrease', player);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    })
 });
 
 mongoose.connect(DB).then(() => {
