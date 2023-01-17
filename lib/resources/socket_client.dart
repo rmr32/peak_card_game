@@ -6,7 +6,7 @@ class SocketClient {
 
   SocketClient._internal() {
     // socket = IO.io('http://192.168.0.46:3000', <String, dynamic>{
-    socket = IO.io('https://peak.herokuapp.com/#/', <String, dynamic>{
+    socket = IO.io('https://peak.herokuapp.com', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
