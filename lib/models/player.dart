@@ -3,7 +3,6 @@ class Player {
   final String socketID;
   final double points;
   final String playerType;
-
   Player({
     required this.nickname,
     required this.socketID,

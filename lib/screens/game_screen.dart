@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peak_card_game/provider/room_data_provider.dart';
 import 'package:peak_card_game/resources/socket_methods.dart';
+import 'package:peak_card_game/utils/style.dart';
 import 'package:peak_card_game/views/gameboard.dart';
 import 'package:peak_card_game/views/scoreboard.dart';
 import 'package:peak_card_game/views/waiting_lobby.dart';
@@ -40,7 +41,9 @@ class _GameScreenState extends State<GameScreen> {
                   const Scoreboard(),
                   const GameBoard(),
                   Text(
-                      '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
+                    '${roomDataProvider.roomData['turn']['nickname']}\'s turn',
+                    style: InkStyle.secondary,
+                  ),
                 ],
               ),
             ),
