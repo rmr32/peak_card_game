@@ -3,17 +3,19 @@ import 'package:peak_card_game/utils/color.dart';
 import 'package:peak_card_game/utils/style.dart';
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String text;
+  final double? width;
   const CustomButton({
     Key? key,
-    required this.onTap,
+    this.onTap,
     required this.text,
+    this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final minWidth = width ?? MediaQuery.of(context).size.width;
 
     return Container(
       decoration: const BoxDecoration(
@@ -26,14 +28,18 @@ class CustomButton extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: onTap ?? () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: Palette.primaryContainer,
-          minimumSize: Size(width, 50),
+          backgroundColor: onTap != null
+              ? Palette.primaryContainer
+              : Palette.onPrimaryContainer,
+          minimumSize: Size(minWidth, 50),
         ),
         child: Text(
           text,
-          style: InkStyle.primary,
+          style: onTap != null
+              ? InkStyle.primary
+              : InkStyle.primary.copyWith(color: Palette.gameBoard),
         ),
       ),
     );

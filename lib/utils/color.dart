@@ -29,4 +29,8 @@ class Palette {
   // Color get backgroundSettings => pingBackgroundMain;
   static const Color playerOne = Colors.red;
   static const Color playerTwo = Colors.blue;
+  static Color gameBoard = Colors.green.shade800;
+  static const Color playingCard = Colors.white;
+  static const Color redCard = Colors.red;
+  static const Color blackCard = Colors.black;
 }

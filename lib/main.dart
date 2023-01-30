@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:peak_card_game/provider/card_game_provider.dart';
+
 import 'package:peak_card_game/provider/room_data_provider.dart';
 import 'package:peak_card_game/screens/create_room_screen.dart';
+import 'package:peak_card_game/screens/game_room_screen.dart';
 import 'package:peak_card_game/screens/game_screen.dart';
 import 'package:peak_card_game/screens/join_room_screen.dart';
 import 'package:peak_card_game/screens/main_menu_screen.dart';
@@ -15,8 +18,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => RoomDataProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CardGameProvider()),
+        ChangeNotifierProvider(create: (_) => RoomDataProvider()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark(),
@@ -24,10 +30,28 @@ class MyApp extends StatelessWidget {
           MainMenuScreen.routeName: (context) => const MainMenuScreen(),
           CreateRoomScreen.routeName: (context) => const CreateRoomScreen(),
           JoinRoomScreen.routeName: (context) => const JoinRoomScreen(),
+          GameRoomScreen.routeName: (context) => const GameRoomScreen(),
           GameScreen.routeName: (context) => const GameScreen(),
         },
         initialRoute: MainMenuScreen.routeName,
       ),
     );
+    // @override
+    // Widget build(BuildContext context) {
+    //   return ChangeNotifierProvider(
+    //     create: (context) => RoomDataProvider(),
+    //     child: MaterialApp(
+    //       title: 'Flutter Demo',
+    //       theme: ThemeData.dark(),
+    //       routes: {
+    //         MainMenuScreen.routeName: (context) => const MainMenuScreen(),
+    //         CreateRoomScreen.routeName: (context) => const CreateRoomScreen(),
+    //         JoinRoomScreen.routeName: (context) => const JoinRoomScreen(),
+    //         GameRoomScreen.routeName: (context) => const GameRoomScreen(),
+    //         GameScreen.routeName: (context) => const GameScreen(),
+    //       },
+    //       initialRoute: MainMenuScreen.routeName,
+    //     ),
+    //   );
   }
 }

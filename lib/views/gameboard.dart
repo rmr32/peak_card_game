@@ -18,14 +18,10 @@ class _GameBoardState extends State<GameBoard> {
   @override
   void initState() {
     super.initState();
-    _socketMethods.tappedListner(context);
+    _socketMethods.tappedListener(context);
   }
 
   void tapped(int index, RoomDataProvider roomDataProvider) {
-    print(roomDataProvider.roomData['_id']);
-    print(_socketMethods.socketClient.id);
-    print(roomDataProvider.roomData['turn']);
-    print(_socketMethods.socketClient.id);
     _socketMethods.tapGrid(
       index,
       roomDataProvider.roomData['_id'],
@@ -44,9 +40,9 @@ class _GameBoardState extends State<GameBoard> {
         maxWidth: 500,
       ),
       child: AbsorbPointer(
-        absorbing: false,
-        // absorbing: roomDataProvider.roomData['turn']['socketID'] !=
-        //     _socketMethods.socketClient.id,
+        // absorbing: false,
+        absorbing: roomDataProvider.roomData['turn']['socketID'] !=
+            _socketMethods.socketClient.id,
         child: GridView.builder(
           itemCount: 9,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -69,6 +65,7 @@ class _GameBoardState extends State<GameBoard> {
                       style: InkStyle.primary.copyWith(
                         shadows: [
                           Shadow(
+                            blurRadius: 40,
                             color:
                                 roomDataProvider.displayElements[index] == 'O'
                                     ? Palette.playerOne

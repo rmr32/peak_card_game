@@ -36,3 +36,21 @@ class InkStyle {
     // shadows:
   );
 }
+
+class CardStyle {
+  static const textSize = 50.0;
+  static const width = 226 / 2;
+  static const height = 314 / 2;
+
+  static const blackCard = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Palette.blackCard,
+  );
+
+  static const redCard = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Palette.redCard,
+  );
+}

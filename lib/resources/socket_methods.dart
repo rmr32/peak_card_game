@@ -20,21 +20,21 @@ class SocketMethods {
     }
   }
 
-  void joinRoom(String nickname, String roomID) {
-    if (nickname.isNotEmpty && roomID.isNotEmpty) {
+  void joinRoom(String nickname, String roomId) {
+    if (nickname.isNotEmpty && roomId.isNotEmpty) {
       _socketClient.emit('joinRoom', {
         'nickname': nickname,
-        'roomID': roomID,
+        'roomId': roomId,
       });
     }
   }
 
   // For Game
-  void tapGrid(int index, String roomID, List<String> displayElements) {
+  void tapGrid(int index, String roomId, List<String> displayElements) {
     if (displayElements[index] == '') {
       _socketClient.emit('tap', {
         'index': index,
-        'roomID': roomID,
+        'roomId': roomId,
       });
     }
   }
@@ -80,7 +80,7 @@ class SocketMethods {
   }
 
   // For Game
-  void tappedListner(BuildContext context) {
+  void tappedListener(BuildContext context) {
     _socketClient.on('tapped', (data) {
       RoomDataProvider roomDataProvider =
           Provider.of<RoomDataProvider>(context, listen: false);
@@ -89,11 +89,12 @@ class SocketMethods {
         data['choice'],
       );
       roomDataProvider.updateRoomData(data['room']);
+      // check winnner
       GameMethods().checkWinner(context, _socketClient);
     });
   }
 
-  void pointIncreaseListner(BuildContext context) {
+  void pointIncreaseListener(BuildContext context) {
     _socketClient.on('pointIncrease', (playerData) {
       var roomDataProvider =
           Provider.of<RoomDataProvider>(context, listen: false);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peak_card_game/provider/room_data_provider.dart';
+import 'package:peak_card_game/utils/color.dart';
 import 'package:peak_card_game/utils/style.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,7 @@ class Scoreboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RoomDataProvider roomDataProvider = Provider.of<RoomDataProvider>(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -23,7 +25,14 @@ class Scoreboard extends StatelessWidget {
               ),
               Text(
                 roomDataProvider.player1.points.toInt().toString(),
-                style: InkStyle.header2,
+                style: InkStyle.header2.copyWith(
+                  shadows: [
+                    const Shadow(
+                      blurRadius: 40,
+                      color: Palette.playerOne,
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -39,7 +48,14 @@ class Scoreboard extends StatelessWidget {
               ),
               Text(
                 roomDataProvider.player2.points.toInt().toString(),
-                style: InkStyle.header2,
+                style: InkStyle.header2.copyWith(
+                  shadows: [
+                    const Shadow(
+                      blurRadius: 40,
+                      color: Palette.playerTwo,
+                    )
+                  ],
+                ),
               ),
             ],
           ),
